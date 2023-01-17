@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\BBEv2.props" />
+</Project>

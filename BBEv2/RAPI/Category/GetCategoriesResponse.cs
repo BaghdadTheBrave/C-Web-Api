@@ -1,4 +1,4 @@
-namespace BBE_1.RAPI.Category;
+namespace BBEv2.RAPI.Category;
 
 public record GetCategoryResponse(
     int id,
