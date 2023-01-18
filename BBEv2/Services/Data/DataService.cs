@@ -77,27 +77,27 @@ public class BalanceService : IBalanceService
     {
         _balances.Add(balance);
     }
-    public int UpdateBalance(int id, int income)
+    public Balance UpdateBalance(int id, int income)
     {
         foreach (var balance in (_balances)){
             if (balance.id == id)
             {
                 balance.balance += income;
-                return balance.balance;
+                return balance;
             }
         }
-        return 0;
+        return null;
     }
-    public int GetBalance(int id)
+    public Balance GetBalance(int id)
     {
         foreach (var balance in (_balances))
         {
             if (balance.id == id)
             {
-                return balance.balance;
+                return balance;
             }
         }
-        return 0;
+        return null;
     }
 
 }

@@ -1,5 +1,6 @@
 ﻿namespace BBEv2.RAPI.Balance;
 
-public record GetBalanceRequest(
-    int id
+public record UpdateBalanceRequest(
+    int id,
+    int income
 );

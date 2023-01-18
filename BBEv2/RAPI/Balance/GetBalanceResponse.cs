@@ -1,5 +1,6 @@
 ﻿namespace BBEv2.RAPI.Balance;
 
-public record UpdateBalanceResponse(
+public record GetBalanceResponse(
+    int id,
     int balance
 );

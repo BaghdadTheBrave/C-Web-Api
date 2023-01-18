@@ -21,7 +21,7 @@ public interface IRecordService
 public interface IBalanceService
 {
     void CreateBalance(Balance balance);
-    public int UpdateBalance(int id, int income);
+    public Balance UpdateBalance(int id, int income);
 
-    public int GetBalance(int id);
+    public Balance GetBalance(int id);
 }
