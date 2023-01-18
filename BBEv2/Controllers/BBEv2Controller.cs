@@ -47,9 +47,10 @@ public class BBEv2Controller : ControllerBase
     [HttpPost("/Record")]
     public IActionResult CreateRecord(CreateRecordRequest request)
     {
-        var Record = new Record(request.id, request.idUser, request.idCategory, request.spent);
-        _recordService.CreateRecord(Record);
-        return Ok(Record);
+        var record = new Record(request.id, request.idUser, request.idCategory, request.spent);
+        _recordService.CreateRecord(record);
+        _balanceService.UpdateBalance(record.id, -record.spent);
+        return Ok(record);
     }
 
 
@@ -105,7 +106,7 @@ public class BBEv2Controller : ControllerBase
         return Ok(response);
     }
     [HttpGet("/Balance")]
-    public IActionResult GetBalance(UpdateBalanceRequest request)
+    public IActionResult GetBalance(GetBalanceRequest request)
     {
 
         var response = new UpdateBalanceResponse(_balanceService.GetBalance(request.id));
