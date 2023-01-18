@@ -17,3 +17,11 @@ public interface IRecordService
     List<Record> GetRecordsByUserId(int id);
     List<Record> GetRecordsByUserAndCategory(int userId, int categoryId);
 }
+
+public interface IBalanceService
+{
+    void CreateBalance(Balance balance);
+    public int UpdateBalance(int id, int income);
+
+    public int GetBalance(int id);
+}

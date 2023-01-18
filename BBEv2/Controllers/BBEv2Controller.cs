@@ -4,6 +4,7 @@ using BBEv2.RAPI.Record;
 using BBEv2.Data;
 using Microsoft.AspNetCore.Mvc;
 using BBEv2.Services.Data;
+using BBEv2.RAPI.Balance;
 
 namespace BBEv2.Controllers;
 
@@ -13,13 +14,15 @@ public class BBEv2Controller : ControllerBase
     private readonly IUserService _userService;
     private readonly IRecordService _recordService;
     private readonly ICategoryService _categoryService;
+    private readonly IBalanceService _balanceService;
 
     [ActivatorUtilitiesConstructor]
-    public BBEv2Controller(IUserService userService, IRecordService recordService, ICategoryService categoryService)
+    public BBEv2Controller(IUserService userService, IRecordService recordService, ICategoryService categoryService, IBalanceService balanceService)
     {
         _userService = userService;
         _recordService = recordService;
         _categoryService = categoryService;
+        _balanceService = balanceService;
     }
 
 
@@ -29,6 +32,9 @@ public class BBEv2Controller : ControllerBase
     {
         var user = new User(request.id, request.name);
         _userService.CreateUser(user);
+        var balance = new Balance(request.id);
+        _balanceService.CreateBalance(balance);
+
         return Ok(user);
     }
     [HttpPost("/Category")]
@@ -89,5 +95,21 @@ public class BBEv2Controller : ControllerBase
     public IActionResult GetRecordsByUserIdAndByCategoryId(int idUser, int idCategory)
     {
         return Ok(MapRecords(_recordService.GetRecordsByUserAndCategory(idUser, idCategory)));
+    }
+    [HttpPut("/Balance")]
+    public IActionResult UpdateBalance(UpdateBalanceRequest request)
+    {
+
+        var response = new UpdateBalanceResponse(_balanceService.UpdateBalance(request.id, request.income));
+
+        return Ok(response);
+    }
+    [HttpGet("/Balance")]
+    public IActionResult GetBalance(UpdateBalanceRequest request)
+    {
+
+        var response = new UpdateBalanceResponse(_balanceService.GetBalance(request.id));
+
+        return Ok(response);
     }
 }
