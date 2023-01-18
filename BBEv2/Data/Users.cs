@@ -5,9 +5,9 @@ public class User
     public int id { get; }
     public string name { get; }
 
-    public User(int id, string name)
+    public User(string name)
     {
-        this.id = id;
+        this.id = Guid.NewGuid().GetHashCode();
         this.name = name;
     }
 }

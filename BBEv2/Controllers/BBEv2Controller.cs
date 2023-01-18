@@ -30,9 +30,9 @@ public class BBEv2Controller : ControllerBase
     [HttpPost("/User")]
     public IActionResult CreateUser(CreateUserRequest request)
     {
-        var user = new User(request.id, request.name);
+        var user = new User(request.name);
         _userService.CreateUser(user);
-        var balance = new Balance(request.id);
+        var balance = new Balance(user.id);
         _balanceService.CreateBalance(balance);
 
         return Ok(user);
@@ -40,14 +40,14 @@ public class BBEv2Controller : ControllerBase
     [HttpPost("/Category")]
     public IActionResult CreateCategory(CreateCategoryRequest request)
     {
-        var Category = new Category(request.id, request.name);
+        var Category = new Category(request.name);
         _categoryService.CreateCategory(Category);
         return Ok(Category);
     }
     [HttpPost("/Record")]
     public IActionResult CreateRecord(CreateRecordRequest request)
     {
-        var record = new Record(request.id, request.idUser, request.idCategory, request.spent);
+        var record = new Record(request.idUser, request.idCategory, request.spent);
         _recordService.CreateRecord(record);
         _balanceService.UpdateBalance(record.id, -record.spent);
         return Ok(record);

@@ -5,9 +5,9 @@ public class Category
     public int id { get; }
     public string name { get; }
 
-    public Category(int id, string name)
+    public Category(string name)
     {
-        this.id = id;
+        this.id = Guid.NewGuid().GetHashCode();
         this.name = name;
     }
 }
