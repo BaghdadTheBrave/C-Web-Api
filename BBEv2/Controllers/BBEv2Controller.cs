@@ -1,7 +1,7 @@
-using BBEv2.RAPI.user;
+ using BBEv2.RAPI.user;
 using BBEv2.RAPI.Category;
 using BBEv2.RAPI.Record;
-using BBEv2.Data;
+using BBEv2.DbData;
 using Microsoft.AspNetCore.Mvc;
 using BBEv2.Services.Data;
 using BBEv2.RAPI.Balance;
@@ -32,7 +32,7 @@ public class BBEv2Controller : ControllerBase
     {
         var user = new User(request.name);
         _userService.CreateUser(user);
-        var balance = new Balance(user.id);
+        var balance = new Balance((int)user.Id);
         _balanceService.CreateBalance(balance);
 
         return Ok(user);
@@ -49,7 +49,7 @@ public class BBEv2Controller : ControllerBase
     {
         var record = new Record(request.idUser, request.idCategory, request.spent);
         _recordService.CreateRecord(record);
-        _balanceService.UpdateBalance(record.idUser, -record.spent);
+        _balanceService.UpdateBalance((int)record.IdUser, -(int)record.Spent);
         return Ok(record);
     }
 
@@ -61,7 +61,7 @@ public class BBEv2Controller : ControllerBase
 
         foreach (var category in categoriesList)
         {
-            response.categories.Add(new GetCategoryResponse(category.id, category.name));
+            response.categories.Add(new GetCategoryResponse((int)category.Id, category.Name));
         }
         return response;
     }
@@ -82,8 +82,8 @@ public class BBEv2Controller : ControllerBase
 
         foreach (var record in recordsList)
         {
-            response.records.Add(new GetRecordResponse(record.id, record.idUser, record.idCategory,
-                record.DateTimeOfRecord, record.spent));
+            response.records.Add(new GetRecordResponse((int)record.Id, (int)record.IdUser, (int)record.IdCategory,
+                record.DateTimeOfRecord, (int)record.Spent));
         }
         return response;
     }
@@ -101,7 +101,7 @@ public class BBEv2Controller : ControllerBase
     public IActionResult UpdateBalance(UpdateBalanceRequest request)
     {
         var balance = _balanceService.UpdateBalance(request.id, request.income);
-        var response = new UpdateBalanceResponse(balance.id,balance.balance);
+        var response = new UpdateBalanceResponse((int)balance.Id, (int)balance.Balance1);
 
         return Ok(response);
     }
@@ -109,7 +109,7 @@ public class BBEv2Controller : ControllerBase
     public IActionResult GetBalance(int idBalance)
     {
         var balance = _balanceService.GetBalance(idBalance);
-        var response = new GetBalanceResponse(balance.id,balance.balance);
+        var response = new GetBalanceResponse((int)balance.Id, (int)balance.Balance1);
 
         return Ok(response);
     }

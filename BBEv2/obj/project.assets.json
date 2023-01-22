@@ -1029,6 +1029,7 @@
   "projectFileDependencyGroups": {
     "net6.0": [
       "Microsoft.EntityFrameworkCore >= 6.0.13",
+      "Microsoft.EntityFrameworkCore.Design >= 6.0.13",
       "Microsoft.EntityFrameworkCore.Tools >= 6.0.13",
       "Npgsql.EntityFrameworkCore.PostgreSQL >= 6.0.8",
       "Swashbuckle.AspNetCore >= 6.2.3"
@@ -1074,6 +1075,12 @@
         "targetAlias": "net6.0",
         "dependencies": {
           "Microsoft.EntityFrameworkCore": {
+            "target": "Package",
+            "version": "[6.0.13, )"
+          },
+          "Microsoft.EntityFrameworkCore.Design": {
+            "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+            "suppressParent": "All",
             "target": "Package",
             "version": "[6.0.13, )"
           },

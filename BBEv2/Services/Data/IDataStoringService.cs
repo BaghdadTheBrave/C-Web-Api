@@ -1,6 +1,6 @@
 namespace BBEv2.Services.Data;
 
-using BBEv2.Data;
+using BBEv2.DbData;
 public interface IUserService
 {
     void CreateUser(User user);

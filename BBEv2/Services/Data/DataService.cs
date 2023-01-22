@@ -1,21 +1,25 @@
 namespace BBEv2.Services.Data;
-using BBEv2.Data;
+using BBEv2.DbData;
+using BBEv2.Context;
 
 public class RecordService : IRecordService
 {
 
-    private readonly List<Record> _records = new();
+    private readonly BBEl2Context context = new BBEl2Context();
 
     public void CreateRecord(Record record)
     {
-        _records.Add(record);
+        
+        context.Records.Add(record);
+        context.SaveChanges();
     }
     public List<Record> GetRecordsByUserId(int id)
     {
+        var _records = context.Records;
         List<Record> response = new();
         foreach (var record in _records)
         {
-            if (record.idUser == id)
+            if (record.IdUser == id)
             {
                 response.Add(record);
             }
@@ -24,10 +28,11 @@ public class RecordService : IRecordService
     }
     public List<Record> GetRecordsByUserAndCategory(int userId, int categoryId)
     {
+        var _records = context.Records;
         List<Record> response = new();
         foreach (var record in _records)
         {
-            if (record.idUser == userId && record.idCategory == categoryId)
+            if (record.IdUser == userId && record.IdCategory == categoryId)
             {
                 response.Add(record);
             }
@@ -42,16 +47,22 @@ public class RecordService : IRecordService
 public class CategoryService : ICategoryService
 {
 
-    private readonly List<Category> _categories = new();
+    private readonly BBEl2Context context = new BBEl2Context();
 
     public void CreateCategory(Category category)
     {
-
-        _categories.Add(category);
+        context.Categories.Add(category);
+        context.SaveChanges();
     }
     public List<Category> GetCategories()
     {
-        return _categories;
+        var _categories = context.Categories;
+        List<Category> response = new();
+        foreach (var category in _categories)
+        {
+            response.Add(category);
+        }
+        return response;
     }
 
 }
@@ -59,11 +70,12 @@ public class CategoryService : ICategoryService
 public class UserService : IUserService
 {
 
-    private readonly List<User> _users = new();
+    private readonly BBEl2Context context = new BBEl2Context();
 
     public void CreateUser(User user)
     {
-        _users.Add(user);
+        context.Users.Add(user);
+        context.SaveChanges();
     }
 
 }
@@ -71,18 +83,20 @@ public class UserService : IUserService
 public class BalanceService : IBalanceService
 {
 
-    private readonly List<Balance> _balances = new();
+    private readonly BBEl2Context context = new BBEl2Context();
 
     public void CreateBalance(Balance balance)
     {
-        _balances.Add(balance);
+        context.Balances.Add(balance);
+        context.SaveChanges();
     }
     public Balance UpdateBalance(int id, int income)
     {
+        var _balances = context.Balances;
         foreach (var balance in (_balances)){
-            if (balance.id == id)
+            if (balance.Id == id)
             {
-                balance.balance += income;
+                balance.Balance1 += income;
                 return balance;
             }
         }
@@ -90,9 +104,10 @@ public class BalanceService : IBalanceService
     }
     public Balance GetBalance(int id)
     {
+        var _balances = context.Balances;
         foreach (var balance in (_balances))
         {
-            if (balance.id == id)
+            if (balance.Id == id)
             {
                 return balance;
             }

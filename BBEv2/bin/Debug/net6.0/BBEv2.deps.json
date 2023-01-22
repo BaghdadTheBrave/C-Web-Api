@@ -9,6 +9,7 @@
       "BBEv2/1.0.0": {
         "dependencies": {
           "Microsoft.EntityFrameworkCore": "6.0.13",
+          "Microsoft.EntityFrameworkCore.Design": "6.0.13",
           "Microsoft.EntityFrameworkCore.Tools": "6.0.13",
           "Npgsql.EntityFrameworkCore.PostgreSQL": "6.0.8",
           "Swashbuckle.AspNetCore": "6.2.3"
